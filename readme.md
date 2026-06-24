@@ -1,60 +1,98 @@
-### Как запустить проект Yacut:
+# YaCut
 
-Клонировать репозиторий и перейти в него в командной строке:
+YaCut - сервис для укорачивания ссылок. Приложение создано для того,
+чтобы пользователь мог преобразовать длинный URL в короткую ссылку,
+предложить собственный вариант короткого идентификатора или получить его
+автоматически.
 
-```
-git clone 
-```
+Дополнительно сервис позволяет загружать несколько файлов на Яндекс Диск.
+После загрузки приложение создает короткие ссылки для скачивания этих
+файлов.
 
-```
-cd yacut
-```
+## Технологии
 
-Cоздать и активировать виртуальное окружение:
+Проект разработан на Python с использованием Flask.
 
-```
-python3 -m venv venv
-```
+В проекте используются:
 
-* Если у вас Linux/macOS
+- Flask - основа веб-приложения;
+- Flask-SQLAlchemy - работа с базой данных;
+- Flask-WTF - обработка веб-форм;
+- Flask-Migrate - управление миграциями;
+- aiohttp - асинхронные запросы к API Яндекс Диска;
+- SQLite - база данных на этапе разработки;
+- python-dotenv - загрузка переменных окружения из `.env`.
 
-    ```
-    source venv/bin/activate
-    ```
+## Запуск проекта
 
-* Если у вас windows
+Клонируйте репозиторий и перейдите в папку проекта:
 
-    ```
-    source venv/scripts/activate
-    ```
-
-Установить зависимости из файла requirements.txt:
-
-```
-python3 -m pip install --upgrade pip
+```bash
+git clone <адрес_репозитория>
+cd async-yacut
 ```
 
+Создайте и активируйте виртуальное окружение:
+
+```bash
+python -m venv venv
 ```
+
+Для Windows:
+
+```bash
+source venv/Scripts/activate
+```
+
+Для Linux/macOS:
+
+```bash
+source venv/bin/activate
+```
+
+Установите зависимости:
+
+```bash
 pip install -r requirements.txt
 ```
 
-Создать в директории проекта файл .env с четыремя переменными окружения:
+Создайте файл `.env` по примеру `.env.example` и укажите переменные
+окружения:
 
-```
+```env
 FLASK_APP=yacut
 FLASK_ENV=development
 SECRET_KEY=your_secret_key
-DB=sqlite:///db.sqlite3
+DATABASE_URI=sqlite:///db.sqlite3
+DISK_TOKEN=your_yandex_disk_oauth_token
 ```
 
-Создать базу данных и применить миграции:
+Создайте базу данных:
 
-```
-flask db upgrade
+```bash
+flask shell
 ```
 
-Запустить проект:
+В интерактивной оболочке выполните:
 
+```python
+from yacut import db
+db.create_all()
+exit()
 ```
+
+Запустите приложение:
+
+```bash
 flask run
 ```
+
+После запуска проект будет доступен по адресу:
+
+```text
+http://127.0.0.1:5000/
+```
+
+## Автор
+
+Бочков Артем - [https://github.com/userartemru](https://github.com/userartemru)
