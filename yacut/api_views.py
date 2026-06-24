@@ -1,6 +1,6 @@
 from http import HTTPStatus
 
-from flask import jsonify, request, url_for
+from flask import jsonify, request
 
 from yacut import app, db
 from yacut.constants import (
@@ -35,12 +35,7 @@ def create_short_link():
     url_map = URLMap(original=data['url'], short=short_id)
     db.session.add(url_map)
     db.session.commit()
-    return jsonify({
-        'url': url_map.original,
-        'short_link': url_for(
-            'redirect_view', short_id=url_map.short, _external=True
-        ),
-    }), HTTPStatus.CREATED
+    return jsonify(url_map.to_dict()), HTTPStatus.CREATED
 
 
 @app.route('/api/id/<short_id>/', methods=['GET'], strict_slashes=False)

@@ -3,22 +3,20 @@ import re
 
 from yacut.constants import (
     AUTO_SHORT_ID_LENGTH,
-    CUSTOM_SHORT_ID_MAX_LENGTH,
     RESERVED_SHORT_IDS,
     SHORT_ID_CHARS,
+    SHORT_IDENTIFIER_CHARACTERS,
 )
 from yacut.models import URLMap
 
 
-SHORT_ID_PATTERN = re.compile(r'^[A-Za-z0-9]+$')
+SHORT_ID_REGEX = re.compile(SHORT_IDENTIFIER_CHARACTERS)
 
 
 def is_valid_short_id(short_id):
     return (
         isinstance(short_id, str)
-        and short_id
-        and len(short_id) <= CUSTOM_SHORT_ID_MAX_LENGTH
-        and SHORT_ID_PATTERN.fullmatch(short_id)
+        and SHORT_ID_REGEX.fullmatch(short_id)
     )
 
 

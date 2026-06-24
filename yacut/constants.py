@@ -9,3 +9,6 @@ DUPLICATED_SHORT_ID_MESSAGE = (
 INVALID_SHORT_ID_MESSAGE = 'Указано недопустимое имя для короткой ссылки'
 RESERVED_SHORT_IDS = {'files'}
 SHORT_ID_CHARS = string.ascii_letters + string.digits
+SHORT_IDENTIFIER_CHARACTERS = (
+    rf'^[A-Za-z0-9]{{1,{CUSTOM_SHORT_ID_MAX_LENGTH}}}$'
+)
