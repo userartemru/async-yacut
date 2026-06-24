@@ -18,7 +18,10 @@ class URLMapForm(FlaskForm):
         'Ваш вариант короткой ссылки',
         validators=[
             Optional(),
-            Regexp(SHORT_IDENTIFIER_CHARACTERS, message=INVALID_SHORT_ID_MESSAGE),
+            Regexp(
+                SHORT_IDENTIFIER_CHARACTERS,
+                message=INVALID_SHORT_ID_MESSAGE
+            ),
         ]
     )
     submit = SubmitField('Создать')
